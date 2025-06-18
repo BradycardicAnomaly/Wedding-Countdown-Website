@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Wedding Countdown</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #f2e6d3, #eddcc4, #e8d2b5, #e3c8a6);
+            min-height: 100vh;
+            color: #5a4a3a;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #c8a882;
+        }
+
+        .logo {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #c8a882;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #8b7355;
+            font-style: italic;
+        }
+
+        .countdown-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .countdown-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 2px solid #c8a882;
+        }
+
+        .countdown-card:hover {
+            transform: translateY(-5px);
+            border-color: #b8986b;
+        }
+
+        .wedding-title {
+            font-size: 1.5em;
+            color: #c8a882;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .wedding-date {
+            font-size: 1.1em;
+            color: #8b7355;
+            margin-bottom: 20px;
+        }
+
+        .countdown-display {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .time-unit {
+            text-align: center;
+        }
+
+        .time-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #c8a882;
+            display: block;
+        }
+
+        .time-label {
+            font-size: 0.9em;
+            color: #8b7355;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slideshow-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border: 2px solid #c8a882;
+        }
+
+        .slideshow-title {
+            text-align: center;
+            font-size: 2em;
+            color: #c8a882;
+            margin-bottom: 30px;
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide {
+            display: none;
+            position: relative;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            object-position: center center;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #c8a882;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #c8a882;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .prev:hover, .next:hover {
+            background: #c8a882;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+
+        .dots-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .dot {
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #d4c4a8;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active, .dot:hover {
+            background-color: #c8a882;
+        }
+
+        .placeholder-message {
+            text-align: center;
+            padding: 50px;
+            color: #8b7355;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .countdown-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .time-number {
+                font-size: 2em;
+            }
+            
+            .slide img {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+<img src="Wedding Logo.png" alt="Wedding Logo" class="logo">
+   <h1>Our Wedding Journey</h1>
+            <p class="subtitle">Counting down to our special days</p>
+        </header>
+
+        <div class="countdown-section">
+            <div class="countdown-card">
+                <div class="wedding-title">Court Wedding</div>
+                <div class="wedding-date">July 18, 2025</div>
+                <div class="countdown-display">
+                    <div class="time-unit">
+                        <span class="time-number" id="court-days">0</span>
+                        <span class="time-label">Days</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="court-hours">0</span>
+                        <span class="time-label">Hours</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="court-minutes">0</span>
+                        <span class="time-label">Minutes</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="court-seconds">0</span>
+                        <span class="time-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="countdown-card">
+                <div class="wedding-title">Traditional Wedding</div>
+                <div class="wedding-date">August 20, 2025</div>
+                <div class="countdown-display">
+                    <div class="time-unit">
+                        <span class="time-number" id="traditional-days">0</span>
+                        <span class="time-label">Days</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="traditional-hours">0</span>
+                        <span class="time-label">Hours</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="traditional-minutes">0</span>
+                        <span class="time-label">Minutes</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="traditional-seconds">0</span>
+                        <span class="time-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="countdown-card">
+                <div class="wedding-title">White Wedding</div>
+                <div class="wedding-date">August 21, 2025</div>
+                <div class="countdown-display">
+                    <div class="time-unit">
+                        <span class="time-number" id="white-days">0</span>
+                        <span class="time-label">Days</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="white-hours">0</span>
+                        <span class="time-label">Hours</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="white-minutes">0</span>
+                        <span class="time-label">Minutes</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="white-seconds">0</span>
+                        <span class="time-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slideshow-section">
+            <h2 class="slideshow-title">Our Engagement Memories</h2>
+            <div class="slideshow-container">
+                <div class="placeholder-message">
+                    <p>Add your engagement photos to the images array in the JavaScript section!</p>
+                    <p>Replace the placeholder URLs with your actual photo URLs.</p>
+                </div>
+                
+                <!-- Slides will be generated by JavaScript -->
+                <button class="prev" onclick="changeSlide(-1)" style="display: none;">❮</button>
+                <button class="next" onclick="changeSlide(1)" style="display: none;">❯</button>
+            </div>
+            <div class="dots-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Wedding dates
+        const weddingDates = {
+            court: new Date('2025-07-18T00:00:00'),
+            traditional: new Date('2025-08-20T00:00:00'),
+            white: new Date('2025-08-21T00:00:00')
+        };
+
+        // Add your engagement photos here
+        const engagementPhotos = [
+        'Engagement 1.jpg',
+    'Engagement 2.jpg',
+    'Engagement 3.jpg',
+    'Engagement 4.jpg',
+    'Engagement 5.jpg',
+    'Engagement 6.jpg',
+        ];
+
+        let currentSlide = 0;
+
+        function updateCountdown(targetDate, prefix) {
+            const now = new Date().getTime();
+            const timeLeft = targetDate.getTime() - now;
+
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                document.getElementById(prefix + '-days').textContent = days;
+                document.getElementById(prefix + '-hours').textContent = hours;
+                document.getElementById(prefix + '-minutes').textContent = minutes;
+                document.getElementById(prefix + '-seconds').textContent = seconds;
+            } else {
+                document.getElementById(prefix + '-days').textContent = '0';
+                document.getElementById(prefix + '-hours').textContent = '0';
+                document.getElementById(prefix + '-minutes').textContent = '0';
+                document.getElementById(prefix + '-seconds').textContent = '0';
+            }
+        }
+
+        function updateAllCountdowns() {
+            updateCountdown(weddingDates.court, 'court');
+            updateCountdown(weddingDates.traditional, 'traditional');
+            updateCountdown(weddingDates.white, 'white');
+        }
+
+        function initializeSlideshow() {
+            const slideshowContainer = document.querySelector('.slideshow-container');
+            const dotsContainer = document.querySelector('.dots-container');
+
+            if (engagementPhotos.length === 0) {
+                return; // Keep placeholder message
+            }
+
+            // Clear placeholder message
+            slideshowContainer.innerHTML = '';
+
+            // Create slides
+            engagementPhotos.forEach((photo, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'slide' + (index === 0 ? ' active' : '');
+                slide.innerHTML = `
+                    <img src="${photo}" alt="Engagement Photo ${index + 1}">
+                    <div class="slide-overlay">
+                        <p>Our moments together</p>
+                    </div>
+                `;
+                slideshowContainer.appendChild(slide);
+            });
+
+            // Add navigation buttons
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'prev';
+            prevBtn.innerHTML = '❮';
+            prevBtn.onclick = () => changeSlide(-1);
+            slideshowContainer.appendChild(prevBtn);
+
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'next';
+            nextBtn.innerHTML = '❯';
+            nextBtn.onclick = () => changeSlide(1);
+            slideshowContainer.appendChild(nextBtn);
+
+            // Create dots
+            engagementPhotos.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'dot' + (index === 0 ? ' active' : '');
+                dot.onclick = () => goToSlide(index);
+                dotsContainer.appendChild(dot);
+            });
+
+            // Auto-advance slides
+            setInterval(() => {
+                changeSlide(1);
+            }, 5000);
+        }
+
+        function changeSlide(direction) {
+            if (engagementPhotos.length === 0) return;
+
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+
+            currentSlide += direction;
+
+            if (currentSlide >= slides.length) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = slides.length - 1;
+            }
+
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function goToSlide(slideIndex) {
+            if (engagementPhotos.length === 0) return;
+
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+
+            currentSlide = slideIndex;
+
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        // Initialize everything
+        updateAllCountdowns();
+        setInterval(updateAllCountdowns, 1000);
+        initializeSlideshow();
+    </script>
+</body>
+</html>
