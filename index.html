@@ -13,9 +13,9 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #f2e6d3, #eddcc4, #e8d2b5, #e3c8a6);
+            background: linear-gradient(135deg, #f7f4ee, #f2ede1, #ede6d4, #e8dfc7);
             min-height: 100vh;
-            color: #5a4a3a;
+            color: #4a3f2a;
         }
 
         .container {
@@ -31,7 +31,7 @@
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid #c8a882;
+            border: 2px solid #ac9451;
         }
 
         .logo {
@@ -44,14 +44,14 @@
 
         h1 {
             font-size: 3em;
-            color: #c8a882;
+            color: #ac9451;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .subtitle {
             font-size: 1.2em;
-            color: #8b7355;
+            color: #7a6a3e;
             font-style: italic;
         }
 
@@ -69,24 +69,25 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             text-align: center;
             transition: transform 0.3s ease;
-            border: 2px solid #c8a882;
+            border: 2px solid #ac9451;
         }
 
         .countdown-card:hover {
             transform: translateY(-5px);
-            border-color: #b8986b;
+            border-color: #967f45;
+            box-shadow: 0 12px 35px rgba(172, 148, 81, 0.2);
         }
 
         .wedding-title {
             font-size: 1.5em;
-            color: #c8a882;
+            color: #ac9451;
             margin-bottom: 20px;
             font-weight: bold;
         }
 
         .wedding-date {
             font-size: 1.1em;
-            color: #8b7355;
+            color: #7a6a3e;
             margin-bottom: 20px;
         }
 
@@ -103,13 +104,13 @@
         .time-number {
             font-size: 2.5em;
             font-weight: bold;
-            color: #c8a882;
+            color: #ac9451;
             display: block;
         }
 
         .time-label {
             font-size: 0.9em;
-            color: #8b7355;
+            color: #7a6a3e;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -120,13 +121,13 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
-            border: 2px solid #c8a882;
+            border: 2px solid #ac9451;
         }
 
         .slideshow-title {
             text-align: center;
             font-size: 2em;
-            color: #c8a882;
+            color: #ac9451;
             margin-bottom: 30px;
         }
 
@@ -173,19 +174,20 @@
             top: 50%;
             transform: translateY(-50%);
             background: rgba(255, 255, 255, 0.9);
-            border: 2px solid #c8a882;
+            border: 2px solid #ac9451;
             padding: 15px 20px;
             cursor: pointer;
             font-size: 1.5em;
-            color: #c8a882;
+            color: #ac9451;
             border-radius: 50%;
             transition: all 0.3s ease;
         }
 
         .prev:hover, .next:hover {
-            background: #c8a882;
+            background: #ac9451;
             color: white;
             transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 20px rgba(172, 148, 81, 0.3);
         }
 
         .prev {
@@ -205,7 +207,7 @@
             height: 15px;
             width: 15px;
             margin: 0 5px;
-            background-color: #d4c4a8;
+            background-color: #d4c498;
             border-radius: 50%;
             display: inline-block;
             cursor: pointer;
@@ -213,13 +215,13 @@
         }
 
         .dot.active, .dot:hover {
-            background-color: #c8a882;
+            background-color: #ac9451;
         }
 
         .placeholder-message {
             text-align: center;
             padding: 50px;
-            color: #8b7355;
+            color: #7a6a3e;
             font-style: italic;
         }
 
@@ -245,8 +247,7 @@
 <body>
     <div class="container">
         <header>
-<img src="Wedding Logo.png" alt="Wedding Logo" class="logo">
-   <h1>Our Wedding Journey</h1>
+img src="Wedding Logo.png" alt="Wedding Logo" class="logo"            <h1>Our Wedding Journey</h1>
             <p class="subtitle">Counting down to our special days</p>
         </header>
 
@@ -403,7 +404,7 @@
                 slide.innerHTML = `
                     <img src="${photo}" alt="Engagement Photo ${index + 1}">
                     <div class="slide-overlay">
-                        <p>Our moments together</p>
+                        <p>Our beautiful moment together</p>
                     </div>
                 `;
                 slideshowContainer.appendChild(slide);
